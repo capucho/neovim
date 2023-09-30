@@ -1,6 +1,6 @@
 -- since this is just an example spec, don't actually load anything here and return an empty spec
 -- stylua: ignore
-if true then return {} end
+-- if true then return {} end
 
 -- every spec file under the "plugins" directory will be loaded automatically by lazy.nvim
 --
@@ -9,23 +9,23 @@ if true then return {} end
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-  -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
+  -- -- add gruvbox
+  -- { "ellisonleao/gruvbox.nvim" },
+  --
+  -- -- Configure LazyVim to load gruvbox
+  -- {
+  --   "LazyVim/LazyVim",
+  --   opts = {
+  --     colorscheme = "gruvbox",
+  --   },
+  -- },
 
-  -- Configure LazyVim to load gruvbox
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "gruvbox",
-    },
-  },
-
-  -- change trouble config
-  {
-    "folke/trouble.nvim",
-    -- opts will be merged with the parent spec
-    opts = { use_diagnostic_signs = true },
-  },
+  -- -- change trouble config
+  -- {
+  --   "folke/trouble.nvim",
+  --   -- opts will be merged with the parent spec
+  --   opts = { use_diagnostic_signs = true },
+  -- },
 
   -- disable trouble
   { "folke/trouble.nvim", enabled = false },
@@ -59,6 +59,20 @@ return {
         "<leader>fp",
         function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
         desc = "Find Plugin File",
+      },
+      {
+        "<leader>fg",
+        function()
+          require("telescope.builtin").git_files({ cwd = require("lazy.core.config").options.root })
+        end,
+        desc = "Find Git files",
+      },
+      {
+        "<leader>fws",
+        function()
+          require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") })
+        end,
+        desc = "Find Git files",
       },
     },
     -- change some options
@@ -143,6 +157,7 @@ return {
       ensure_installed = {
         "bash",
         "html",
+        "go",
         "javascript",
         "json",
         "lua",
