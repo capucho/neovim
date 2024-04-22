@@ -6,7 +6,7 @@
 -- * override the configuration of LazyVim plugins
 return {
   --
-  -- Configure LazyVim to load gruvbox
+  -- Configure LazyVim to load tokyonight
   {
     "LazyVim/LazyVim",
     opts = {
@@ -17,6 +17,6 @@ return {
   -- disable trouble
   { "folke/trouble.nvim", enabled = false },
 
-  -- disable trouble
+  -- ident blankline
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
 }
