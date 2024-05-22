@@ -6,6 +6,10 @@
 -- * override the configuration of LazyVim plugins
 return {
   --
+
+  -- add gruvbox
+  { "ellisonleao/gruvbox.nvim" },
+
   -- Configure LazyVim to load tokyonight
   {
     "LazyVim/LazyVim",
@@ -14,6 +18,12 @@ return {
     },
   },
 
+  {
+    "L3MON4D3/LuaSnip",
+    keys = function()
+      return {}
+    end,
+  },
   -- disable trouble
   { "folke/trouble.nvim", enabled = false },
 
