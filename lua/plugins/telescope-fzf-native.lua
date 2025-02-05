@@ -15,13 +15,6 @@ return {
       end,
       desc = "Find Git files",
     },
-    {
-      "<leader>fws",
-      function()
-        require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") })
-      end,
-      desc = "Find Git files",
-    },
   },
   -- change some options
   opts = {
