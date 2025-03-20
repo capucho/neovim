@@ -9,12 +9,13 @@ return {
 
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
+  { "rebelot/kanagawa.nvim" },
 
   -- Configure LazyVim to load tokyonight
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "tokyonight",
+      colorscheme = "kanagawa",
     },
   },
 
