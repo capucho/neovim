@@ -17,12 +17,6 @@ return {
     },
   },
 
-  {
-    "L3MON4D3/LuaSnip",
-    keys = function()
-      return {}
-    end,
-  },
 
   -- ident blankline
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
