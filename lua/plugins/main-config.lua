@@ -10,12 +10,13 @@ return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
   { "rebelot/kanagawa.nvim" },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
   -- Configure LazyVim to load tokyonight
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "kanagawa",
+      colorscheme = "catppuccin",
     },
   },
 
@@ -25,6 +26,7 @@ return {
       return {}
     end,
   },
+  --
   -- disable trouble
   { "folke/trouble.nvim", enabled = false },
 

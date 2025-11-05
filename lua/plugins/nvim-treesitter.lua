@@ -12,6 +12,7 @@ return {
         "hcl",
         "typescript",
         "tsx",
+        "java",
         "json",
         "json5",
         "jsonc",
