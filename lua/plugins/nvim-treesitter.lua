@@ -18,6 +18,9 @@ return {
         "jsonc",
         "markdown",
         "markdown_inline",
+        "python",
+        "cpp",
+        "c",
       })
     end
   end,

@@ -7,12 +7,9 @@
 return {
   --
 
-  -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
-  { "rebelot/kanagawa.nvim" },
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
-  -- Configure LazyVim to load tokyonight
+  -- Configure LazyVim to load catppuccin
   {
     "LazyVim/LazyVim",
     opts = {
@@ -20,15 +17,6 @@ return {
     },
   },
 
-  {
-    "L3MON4D3/LuaSnip",
-    keys = function()
-      return {}
-    end,
-  },
-  --
-  -- disable trouble
-  { "folke/trouble.nvim", enabled = false },
 
   -- ident blankline
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
