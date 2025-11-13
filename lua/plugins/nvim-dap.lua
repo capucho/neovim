@@ -8,7 +8,6 @@ return {
         opts.ensure_installed = opts.ensure_installed or {}
         table.insert(opts.ensure_installed, "js-debug-adapter")
         table.insert(opts.ensure_installed, "java-debug-adapter")
-        table.insert(opts.ensure_installed, "java-test")
         table.insert(opts.ensure_installed, "debugpy")
         table.insert(opts.ensure_installed, "cpptools")
       end,
