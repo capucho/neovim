@@ -7,7 +7,6 @@ return {
       opts = function(_, opts)
         opts.ensure_installed = opts.ensure_installed or {}
         table.insert(opts.ensure_installed, "js-debug-adapter")
-        table.insert(opts.ensure_installed, "delve")
         table.insert(opts.ensure_installed, "debugpy")
         table.insert(opts.ensure_installed, "cpptools")
       end,
@@ -31,37 +30,6 @@ return {
         },
       }
     end
-    -- Go DAP configuration
-    dap.adapters.go = {
-      type = "server",
-      port = "${port}",
-      executable = {
-        command = vim.fn.stdpath("data") .. "/mason/bin/dlv",
-        args = { "dap", "-l", "127.0.0.1:${port}" },
-      },
-    }
-
-    dap.configurations.go = {
-      {
-        type = "go",
-        name = "Debug",
-        request = "launch",
-        program = "${file}",
-      },
-      {
-        type = "go",
-        name = "Debug test",
-        request = "launch",
-        mode = "test",
-        program = "${file}",
-      },
-      {
-        type = "go",
-        name = "Debug Package",
-        request = "launch",
-        program = "${fileDirname}",
-      },
-    }
 
     -- TypeScript/JavaScript DAP configuration with ESM support
     for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do

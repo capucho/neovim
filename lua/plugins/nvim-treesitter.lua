@@ -10,7 +10,6 @@ return {
         "hcl",
         "typescript",
         "tsx",
-        "go",
         "json",
         "json5",
         "jsonc",
