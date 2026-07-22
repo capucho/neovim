@@ -1,5 +1,6 @@
--- TypeScript/JavaScript configuration with ESM support
--- This configures tsserver to properly handle ECMAScript Modules
+-- TypeScript/JavaScript configuration
+-- LazyVim's lang.typescript extra uses vtsls (not tsserver).
+-- This overrides vtsls settings for inlay hints and import preferences.
 
 return {
   {
@@ -7,18 +8,17 @@ return {
     opts = function(_, opts)
       opts.servers = opts.servers or {}
 
-      -- Configure tsserver (TypeScript Language Server) for ESM support
-      opts.servers.tsserver = vim.tbl_deep_extend("force", opts.servers.tsserver or {}, {
+      -- Configure vtsls (LazyVim's TypeScript LSP) for ESM support and inlay hints
+      opts.servers.vtsls = vim.tbl_deep_extend("force", opts.servers.vtsls or {}, {
         settings = {
           typescript = {
             inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
+              parameterNames = { enabled = "all" },
+              parameterTypes = { enabled = true },
+              variableTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              enumMemberValues = { enabled = true },
             },
             preferences = {
               importModuleSpecifier = "non-relative",
@@ -27,13 +27,12 @@ return {
           },
           javascript = {
             inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
+              parameterNames = { enabled = "all" },
+              parameterTypes = { enabled = true },
+              variableTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              enumMemberValues = { enabled = true },
             },
             preferences = {
               importModuleSpecifier = "non-relative",
@@ -42,7 +41,7 @@ return {
           },
         },
         on_attach = function(client, bufnr)
-          -- Disable tsserver formatting (use Prettier instead)
+          -- Disable vtsls formatting (use Prettier instead)
           client.server_capabilities.documentFormattingProvider = false
           client.server_capabilities.documentRangeFormattingProvider = false
         end,

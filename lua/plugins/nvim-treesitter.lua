@@ -15,9 +15,10 @@ return {
         "jsonc",
         "markdown",
         "markdown_inline",
-        "python",
-        "cpp",
-        "c",
+        "vim",
+        "regex",
+        "bash",
+        "lua",
       })
     end
   end,

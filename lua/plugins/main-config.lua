@@ -20,4 +20,7 @@ return {
 
   -- ident blankline
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
+
+  -- disable noice in favour of snacks.nvim
+  { "folke/noice.nvim", enabled = false },
 }

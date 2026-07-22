@@ -7,28 +7,31 @@ return {
       opts = function(_, opts)
         opts.ensure_installed = opts.ensure_installed or {}
         table.insert(opts.ensure_installed, "js-debug-adapter")
-        table.insert(opts.ensure_installed, "debugpy")
-        table.insert(opts.ensure_installed, "cpptools")
       end,
     },
   },
   opts = function()
     local dap = require("dap")
+    local mason_registry = require("mason-registry")
+
     if not dap.adapters["pwa-node"] then
-      require("dap").adapters["pwa-node"] = {
-        type = "server",
-        host = "localhost",
-        port = "${port}",
-        executable = {
-          command = "node",
-          -- 💀 Make sure to update this path to point to your installation
-          args = {
-            require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-              .. "/js-debug/src/dapDebugServer.js",
-            "${port}",
+      local ok, js_pkg = pcall(mason_registry.get_package, "js-debug-adapter")
+      if ok and js_pkg:is_installed() then
+        require("dap").adapters["pwa-node"] = {
+          type = "server",
+          host = "localhost",
+          port = "${port}",
+          executable = {
+            command = "node",
+            args = {
+              js_pkg:get_install_path() .. "/js-debug/src/dapDebugServer.js",
+              "${port}",
+            },
           },
-        },
-      }
+        }
+      else
+        vim.notify("nvim-dap: js-debug-adapter not installed. Run :MasonInstall js-debug-adapter", vim.log.levels.WARN)
+      end
     end
 
     -- TypeScript/JavaScript DAP configuration with ESM support
@@ -47,7 +50,6 @@ return {
               "${workspaceFolder}/**",
               "!**/node_modules/**",
             },
-            -- Enable source maps for TypeScript
             sourceMaps = true,
             outputCapture = "std",
           },
@@ -92,90 +94,5 @@ return {
         }
       end
     end
-
-    -- Python DAP configuration
-    if not dap.adapters.python then
-      local debugpy_path = require("mason-registry").get_package("debugpy"):get_install_path()
-      dap.adapters.python = {
-        type = "executable",
-        command = debugpy_path .. "/venv/bin/python",
-        args = { "-m", "debugpy.adapter" },
-      }
-    end
-
-    -- Import Python helper for UV support
-    local python_helpers = require("config.python-helpers")
-
-    dap.configurations.python = {
-      {
-        type = "python",
-        request = "launch",
-        name = "Launch file",
-        program = "${file}",
-        python = function()
-          return python_helpers.get_python_path()
-        end,
-        console = "integratedTerminal",
-        justMyCode = false,
-      },
-      {
-        type = "python",
-        request = "attach",
-        name = "Attach",
-        connect = {
-          port = 5678,
-          host = "127.0.0.1",
-        },
-        pathMappings = {
-          {
-            localRoot = "${workspaceFolder}",
-            remoteRoot = ".",
-          },
-        },
-      },
-    }
-
-    -- C++ DAP configuration
-    if not dap.adapters.cppdbg then
-      dap.adapters.cppdbg = {
-        id = "cppdbg",
-        type = "executable",
-        command = require("mason-registry").get_package("cpptools"):get_install_path() .. "/extension/debugAdapters/bin/OpenDebugAD7",
-      }
-    end
-
-    dap.configurations.cpp = {
-      {
-        name = "Launch file",
-        type = "cppdbg",
-        request = "launch",
-        program = function()
-          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-        cwd = "${workspaceFolder}",
-        stopAtEntry = false,
-        setupCommands = {
-          {
-            text = "-enable-pretty-printing",
-            description = "enable pretty printing",
-            ignoreFailures = false,
-          },
-        },
-      },
-      {
-        name = "Attach to gdbserver :1234",
-        type = "cppdbg",
-        request = "attach",
-        MIMode = "gdb",
-        miDebuggerServerAddress = "localhost:1234",
-        miDebuggerPath = "/usr/bin/gdb",
-        cwd = "${workspaceFolder}",
-        program = function()
-          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-      },
-    }
-
-    dap.configurations.c = dap.configurations.cpp
   end,
 }
