@@ -5,6 +5,7 @@ A comprehensive Neovim configuration based on [LazyVim](https://github.com/LazyV
 ## Table of Contents
 
 - [Initial Setup](#initial-setup)
+- [Copilot](#copilot)
 - [Common Scenarios](#common-scenarios)
 - [Language-Specific Guides](#language-specific-guides)
   - [Python](#python)
@@ -18,6 +19,16 @@ A comprehensive Neovim configuration based on [LazyVim](https://github.com/LazyV
 
 ---
 
+## Copilot
+
+Copilot suggestions appear automatically in Insert mode after authentication with `:Copilot auth`.
+
+- `<Tab>` - Accept visible Copilot suggestion; otherwise move through active snippet or fall back to normal Tab
+- `<C-Space>` - Trigger completion menu
+- `<M-]>` / `<M-[>` - Show next/previous Copilot suggestion
+
+---
+
 ## Initial Setup
 
 ### Prerequisites
@@ -27,18 +38,20 @@ Before using this configuration, ensure you have the following installed:
 #### Required Tools
 
 1. **Neovim** (v0.9.0 or higher)
+
    ```bash
    # macOS
    brew install neovim
-   
+
    # Linux (Ubuntu/Debian)
    sudo apt install neovim
-   
+
    # Arch Linux
    sudo pacman -S neovim
    ```
 
 2. **Git** (for plugin management)
+
    ```bash
    # Verify installation
    git --version
@@ -55,57 +68,68 @@ Before using this configuration, ensure you have the following installed:
 #### Language-Specific Tools
 
 **Python:**
+
 - **UV** (Python package manager) - **Required for Python projects**
+
   ```bash
   # macOS/Linux
   curl -LsSf https://astral.sh/uv/install.sh | sh
   ```
-  
+
   Verify installation:
+
   ```bash
   uv --version
   ```
 
 **C/C++:**
+
 - **GCC** or **Clang** compiler
+
   ```bash
   # macOS
   xcode-select --install
   # or install via Homebrew
   brew install gcc
-  
+
   # Linux (Ubuntu/Debian)
   sudo apt install build-essential gdb
   ```
 
 **Java:**
+
 - **JDK** (Java Development Kit) 11 or higher
+
   ```bash
   # macOS
   brew install openjdk@17
   # or download from https://adoptium.net/
-  
+
   # Linux (Ubuntu/Debian)
   sudo apt install openjdk-17-jdk
   ```
 
 **Docker:**
+
 - **Docker** (for Dockerfile support)
+
   ```bash
   # macOS
   brew install --cask docker
   # or download Docker Desktop from https://www.docker.com/products/docker-desktop
-  
+
   # Linux
   # Follow instructions at https://docs.docker.com/engine/install/
   ```
 
 **Terraform:**
+
 - **Terraform** CLI
+
   ```bash
   # macOS
   brew install terraform
-  
+
   # Linux
   # Download from https://www.terraform.io/downloads
   ```
@@ -113,17 +137,20 @@ Before using this configuration, ensure you have the following installed:
 ### First-Time Setup
 
 1. **Clone or ensure this configuration is in place:**
+
    ```bash
    # If starting fresh, ensure the config directory exists
    mkdir -p ~/.config/nvim
    ```
 
 2. **Open Neovim:**
+
    ```bash
    nvim
    ```
 
 3. **LazyVim will automatically:**
+
    - Bootstrap Lazy.nvim plugin manager
    - Install all configured plugins
    - Set up LSP servers via Mason
@@ -239,11 +266,13 @@ The default leader key is `<Space>`. Most custom keymaps use this prefix.
 #### Setup
 
 1. **Install UV** (if not already installed):
+
    ```bash
    curl -LsSf https://astral.sh/uv/install.sh | sh
    ```
 
 2. **Initialize UV project** (if starting a new project):
+
    ```bash
    uv init my-project
    cd my-project
@@ -267,20 +296,24 @@ The default leader key is `<Space>`. Most custom keymaps use this prefix.
 #### Usage
 
 **Autocomplete & LSP:**
+
 - Code completion appears automatically as you type
 - `gd` - Go to definition
 - `K` - Show documentation
 - `<leader>ca` - Code actions (imports, quick fixes)
 
 **Formatting:**
+
 - `<leader>cf` - Format file
 - Auto-format on save (enabled by default)
 
 **Linting:**
+
 - Errors and warnings appear inline
 - `<leader>xx` - View all diagnostics
 
 **Testing:**
+
 - Place cursor on a test function
 - `<leader>tt` - Run that test
 - `<leader>tT` - Run all tests in current file
@@ -288,18 +321,21 @@ The default leader key is `<Space>`. Most custom keymaps use this prefix.
 - `<leader>tL` - Debug test (sets breakpoints, etc.)
 
 **Debugging:**
+
 1. Set breakpoint: `<leader>db` or click in the gutter
 2. Start debugging: `<F5>`
 3. Use navigation keys: `<F2>` (step over), `<F3>` (step into), `<F4>` (step out)
 4. View variables in the debug UI
 
 **UV Integration:**
+
 - The configuration automatically detects UV-managed projects
 - It uses `.venv/bin/python` from your UV project
 - Works seamlessly with `uv sync` and `uv run`
 - LSP, debugging, and testing all use the correct Python interpreter
 
 **Example workflow:**
+
 ```bash
 # 1. Create and sync UV project
 uv init my-python-app
@@ -322,12 +358,13 @@ nvim src/main.py
 #### Setup
 
 1. **Install compiler:**
+
    ```bash
    # macOS
    xcode-select --install
    # or
    brew install gcc
-   
+
    # Linux (Ubuntu/Debian)
    sudo apt install build-essential gdb
    ```
@@ -343,21 +380,26 @@ nvim src/main.py
 #### Usage
 
 **Autocomplete & LSP:**
+
 - Code completion appears automatically
 - `gd` - Go to definition
 - `K` - Show documentation
 
 **Formatting:**
+
 - `<leader>cf` - Format file with clang-format
 - Auto-format on save (enabled by default)
 
 **Debugging:**
+
 1. **Compile your program first:**
+
    ```bash
    g++ -g -o myprogram main.cpp
    ```
 
 2. **Start debugging:**
+
    - `<F5>` - Select "Launch file" configuration
    - Enter path to executable when prompted
    - Use `<F2>`, `<F3>`, `<F4>` to step through code
@@ -371,10 +413,12 @@ nvim src/main.py
    - Enter executable path when prompted
 
 **Debugging Configurations:**
+
 - **Launch file:** Debug a compiled executable
 - **Attach to gdbserver:** Attach to a running process via gdbserver
 
 **Build Systems:**
+
 - For CMake projects, ensure `compile_commands.json` is generated:
   ```bash
   cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .
@@ -388,6 +432,7 @@ nvim src/main.py
 #### Setup
 
 1. **Install Node.js** (via nvm recommended):
+
    ```bash
    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
    nvm install --lts
@@ -395,6 +440,7 @@ nvim src/main.py
    ```
 
 2. **Initialize project** (if starting new):
+
    ```bash
    npm init -y
    # or
@@ -404,14 +450,16 @@ nvim src/main.py
    ```
 
 3. **For ESM (ECMAScript Modules) support:**
+
    ```bash
    # Add to package.json
    echo '"type": "module"' >> package.json
-   
+
    # Or use .mjs/.mts extensions for individual files
    ```
 
 4. **Install Vitest** (recommended testing framework):
+
    ```bash
    npm install --save-dev vitest @vitest/ui
    # or
@@ -438,6 +486,7 @@ nvim src/main.py
 This configuration fully supports ESM projects:
 
 - **Automatic detection:** tsserver detects ESM based on:
+
   - `package.json` with `"type": "module"`
   - `.mjs` / `.mts` file extensions
   - Import/export syntax
@@ -452,6 +501,7 @@ This configuration fully supports ESM projects:
 #### Usage
 
 **Autocomplete & LSP:**
+
 - Code completion with TypeScript types (ESM-aware)
 - `gd` - Go to definition
 - `K` - Show documentation
@@ -459,11 +509,13 @@ This configuration fully supports ESM projects:
 - Inlay hints for types and parameters
 
 **Formatting:**
+
 - `<leader>cf` - Format with Prettier
 - Auto-format on save (enabled by default)
 - Prettier automatically handles ESM syntax
 
 **Linting:**
+
 - ESLint errors appear inline
 - `<leader>xx` - View all diagnostics
 - ESLint configured for ESM projects
@@ -483,21 +535,23 @@ Vitest is the primary testing framework and fully supports ESM:
 - `<leader>tp` - Toggle output panel
 
 **Vitest automatically detects:**
+
 - ESM modules via `package.json` `"type": "module"`
 - TypeScript files (`.ts`, `.tsx`, `.mts`)
 - Test files matching patterns: `*.test.{ts,tsx,js,jsx,mts,mjs}` or `*.spec.{ts,tsx,js,jsx,mts,mjs}`
 
 **Example Vitest test:**
+
 ```typescript
 // math.test.ts
-import { describe, it, expect } from 'vitest'
-import { add } from './math'
+import { describe, it, expect } from "vitest";
+import { add } from "./math";
 
-describe('math', () => {
-  it('should add two numbers', () => {
-    expect(add(1, 2)).toBe(3)
-  })
-})
+describe("math", () => {
+  it("should add two numbers", () => {
+    expect(add(1, 2)).toBe(3);
+  });
+});
 ```
 
 **Debugging:**
@@ -505,6 +559,7 @@ describe('math', () => {
 1. **Set breakpoint:** `<leader>db` or click in the gutter
 
 2. **Start debugging:** `<F5>` - Select one of:
+
    - **"Launch file (ESM via tsx)"** - Recommended for ESM projects (requires `tsx` package)
    - **"Launch file (ESM via node)"** - Alternative ESM option (uses ts-node/esm loader)
    - **"Launch file (CommonJS)"** - For CommonJS projects
@@ -517,6 +572,7 @@ describe('math', () => {
    - `<F5>` - Continue
 
 **Example workflow (ESM project):**
+
 ```bash
 # 1. Initialize ESM project
 npm init -y
@@ -567,19 +623,21 @@ nvim src/index.ts
 #### Setup
 
 1. **Install JDK:**
+
    ```bash
    # macOS
    brew install openjdk@17
-   
+
    # Linux (Ubuntu/Debian)
    sudo apt install openjdk-17-jdk
    ```
 
 2. **Set JAVA_HOME** (if needed):
+
    ```bash
    # macOS
    export JAVA_HOME=$(/usr/libexec/java_home -v 17)
-   
+
    # Linux
    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
    ```
@@ -595,19 +653,23 @@ nvim src/index.ts
 #### Usage
 
 **Autocomplete & LSP:**
+
 - Full Java IntelliSense
 - `gd` - Go to definition
 - `K` - Show documentation
 - `<leader>ca` - Code actions
 
 **Debugging:**
+
 1. **Remote debugging setup:**
+
    - Start your Java application with debug flags:
      ```bash
      java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar myapp.jar
      ```
 
 2. **Attach debugger:**
+
    - `<F5>` - Select "Debug (Attach) - Remote"
    - Debugger connects to `localhost:5005`
 
@@ -617,6 +679,7 @@ nvim src/index.ts
    - `<F4>` - Step out
 
 **Project Structure:**
+
 - Works best with Maven or Gradle projects
 - Ensure `pom.xml` (Maven) or `build.gradle` (Gradle) is in project root
 
@@ -627,10 +690,11 @@ nvim src/index.ts
 #### Setup
 
 1. **Install Docker:**
+
    ```bash
    # macOS
    brew install --cask docker
-   
+
    # Linux
    # Follow: https://docs.docker.com/engine/install/
    ```
@@ -643,11 +707,13 @@ nvim src/index.ts
 #### Usage
 
 **Autocomplete & LSP:**
+
 - Code completion for Dockerfile commands
 - `gd` - Go to definition (if available)
 - Linting for Dockerfile syntax
 
 **Example Dockerfile:**
+
 ```dockerfile
 FROM node:18
 WORKDIR /app
@@ -664,10 +730,11 @@ CMD ["node", "index.js"]
 #### Setup
 
 1. **Install Terraform:**
+
    ```bash
    # macOS
    brew install terraform
-   
+
    # Linux
    # Download from https://www.terraform.io/downloads
    ```
@@ -681,11 +748,13 @@ CMD ["node", "index.js"]
 #### Usage
 
 **Formatting:**
+
 - Formatting on save is **disabled** by default
 - Format manually: `:!terraform fmt`
 - Or use: `<leader>cf` (if enabled)
 
 **LSP:**
+
 - Code completion for Terraform resources
 - `gd` - Go to definition
 - Validation and syntax checking
@@ -709,10 +778,12 @@ No additional setup required.
 #### Usage
 
 **Autocomplete:**
+
 - Schema-aware completion for `package.json`, `tsconfig.json`, etc.
 - Validation against JSON schemas
 
 **Formatting:**
+
 - Formatting on save is **disabled** by default
 - Format manually: `<leader>cf`
 
@@ -723,6 +794,7 @@ No additional setup required.
 #### Setup
 
 1. **Install Rust:**
+
    ```bash
    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
    ```
@@ -737,12 +809,14 @@ No additional setup required.
 #### Usage
 
 **Autocomplete & LSP:**
+
 - Full Rust IntelliSense via rust-analyzer
 - `gd` - Go to definition
 - `K` - Show documentation
 - Code completion and error checking
 
 **Note:** For full Rust support (formatting, debugging), consider adding the Rust LazyVim extra in `lua/config/lazy.lua`:
+
 ```lua
 { import = "lazyvim.plugins.extras.lang.rust" },
 ```
@@ -754,11 +828,13 @@ No additional setup required.
 ### LSP Not Working
 
 1. **Check if LSP server is installed:**
+
    - Type `:Mason` to open Mason UI
    - Look for your language server (e.g., `pyright`, `clangd`)
    - Install if missing
 
 2. **Restart LSP:**
+
    - `:LspRestart` - Restart LSP for current buffer
    - `:LspInfo` - Show LSP status
 
@@ -768,6 +844,7 @@ No additional setup required.
 ### Debugging Not Working
 
 1. **Ensure debug adapter is installed:**
+
    - Type `:Mason`
    - Install: `debugpy` (Python), `cpptools` (C++), `js-debug-adapter` (JavaScript)
 
@@ -778,9 +855,11 @@ No additional setup required.
 ### Formatting Not Working
 
 1. **Check formatter is installed:**
+
    - `:Mason` - Install formatter (e.g., `black`, `prettier`, `clang-format`)
 
 2. **Check file type:**
+
    - Some file types have formatting disabled (markdown, json, yaml, terraform)
    - Check `lua/config/options.lua` for `autoformat_disabled_filetypes`
 
@@ -790,11 +869,13 @@ No additional setup required.
 ### Python UV Not Detected
 
 1. **Ensure UV project is synced:**
+
    ```bash
    uv sync
    ```
 
 2. **Check `.venv` exists:**
+
    ```bash
    ls -la .venv/bin/python
    ```
@@ -804,10 +885,12 @@ No additional setup required.
 ### Tests Not Running
 
 1. **Check test adapter is installed:**
+
    - For Python: `pytest` should be in your UV environment
    - For JavaScript/TypeScript: `vitest` should be installed
 
 2. **Check test file structure:**
+
    - Python: Tests should be named `test_*.py` or `*_test.py`
    - JavaScript/TypeScript: Vitest looks for `*.test.{ts,tsx,js,jsx,mts,mjs}` or `*.spec.{ts,tsx,js,jsx,mts,mjs}`
 
