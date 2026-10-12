@@ -5,7 +5,6 @@ A comprehensive Neovim configuration based on [LazyVim](https://github.com/LazyV
 ## Table of Contents
 
 - [Initial Setup](#initial-setup)
-- [Copilot](#copilot)
 - [Common Scenarios](#common-scenarios)
 - [Language-Specific Guides](#language-specific-guides)
   - [Python](#python)
@@ -16,16 +15,6 @@ A comprehensive Neovim configuration based on [LazyVim](https://github.com/LazyV
   - [Terraform](#terraform)
   - [JSON](#json)
   - [Rust](#rust)
-
----
-
-## Copilot
-
-Copilot suggestions appear automatically in Insert mode after authentication with `:Copilot auth`.
-
-- `<Tab>` - Accept visible Copilot suggestion; otherwise move through active snippet or fall back to normal Tab
-- `<C-Space>` - Trigger completion menu
-- `<M-]>` / `<M-[>` - Show next/previous Copilot suggestion
 
 ---
 
